@@ -1,0 +1,11 @@
+== owlpost
+
+This is a silly little mail app built with rails.
+
+Features:
+
+* Send emails to multiple users at once.
+
+* Email recipients emails verified before sending.
+
+* Schedule email to be sent at later date.

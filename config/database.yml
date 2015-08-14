@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: owlpost_development
+
+test:
+  <<: *default
+  database: owlpost_test
+
+production:
+  <<: *default
+  database: owlpost_production
+  username: owlpost
+  password: <%= ENV['OWLPOST_DATABASE_PASSWORD'] %>
