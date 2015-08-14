@@ -6,17 +6,33 @@
 	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	  <%= csrf_meta_tags %>
 	</head>
+
 	<body>
+		<header>
+			<div class="middle">
+				<a href="/" id="logo"><%= image_tag("logo.png") %></a>
 
-	<% if flash[:notice] %>
-	  <div class="notice"><%= flash[:notice] %></div>
-	<% end %>
-	
-	<% if flash[:alert] %>
-	  <div class="alert"><%= flash[:alert] %></div>
-	<% end %>
+				<% if user_signed_in? %>
+				  <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "hlink") %>
+				  <p class="hbar">|</p>
+				  <%= link_to('User Details', edit_user_registration_path, class: "hlink") %>     
+				<% else %>
+				  <%= link_to('Login', new_user_session_path, class: "hlink") %>
+				  <p class="hbar">|</p>
+				  <%= link_to('Register', new_user_registration_path, class: "hlink")  %>
+				<% end %>
+			</div>
+		</header>
+		<div class="middle">
+			<% if flash[:notice] %>
+			  <div class="notice"><%= flash[:notice] %></div>
+			<% end %>
 
-	<%= yield %>
+			<% if flash[:alert] %>
+			  <div class="alert"><%= flash[:alert] %></div>
+			<% end %>
 
+			<%= yield %>
+		</div>
 	</body>
 </html>
