@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 
 group :development, :test do
-	# Manages local environment variables.
+	gem "better_errors"
+	gem "binding_of_caller"
   gem 'rspec'
 end
