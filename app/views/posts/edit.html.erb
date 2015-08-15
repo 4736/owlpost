@@ -1,2 +1,22 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<div class="editPost">
+	<h1>Update Post</h1>
+
+	<%= form_for @post do |f| %>
+
+		<%= f.label :eta, class: "label" %>
+	  <%= f.datetime_field :eta %>
+
+	  <%= f.label :recipients, class: "label" %>
+	  <%= f.text_field :recipients, value: @post.recipients.join(", ") %>
+
+	  <%= f.label :subject, class: "label" %>
+	  <%= f.text_field :subject %>
+
+	  <%= f.label :body, class: "label" %>
+	  <%= f.text_area :body %>
+
+	  <%= f.submit nil, class: "Update" %>
+
+	  <%= link_to 'Destroy', @post, :method => :delete, class: "postDel", :confirm => "Are you sure you want to DELETE the post?" %>
+	<% end %>
+</div>

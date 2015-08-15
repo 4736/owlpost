@@ -1,2 +1,15 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1>Scheduled Posts</h1>
+
+<div class="posts">
+	<p class="now"><%= Time.now %></p>
+	<% @posts.each do |post| %>
+		<a href="/posts/<%= post.id %>" class="post">
+			<p class="postLeft"><%= post.subject.truncate(42, separator: ' ') %> ></p>
+			<p class="postLeft">> <%= post.recipients.first %><%= post.recipients.count > 1 ? " and #{post.recipients.count - 1} others." : "" %></p>
+
+			<p class="postRight"><%= post.eta.to_s %></p>
+		</a>
+	<% end %>
+
+	<a href="/posts/new" class="post postNew">Schedule A Post</a>
+</div>

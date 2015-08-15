@@ -3,9 +3,9 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
     	t.integer  :user_id, null: false
 
-    	t.datetime :eta
+    	t.datetime   :eta
     	t.text		 :recipients, array: true, default: []
-    	t.string   :subject
+    	t.string     :subject
     	t.text   	 :body
 
     	t.timestamps
