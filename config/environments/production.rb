@@ -76,4 +76,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Hostname of sending website.
+  config.action_mailer.default_url_options = { :host => ENV['PROD_WEB_HOST'] }
+
+  # Care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.mailgun.org",
+    :port => 587,
+    :domain => ENV['PROD_MAILGUN_DOMAIN'],
+    :user_name => ENV['PROD_MAILGUN_USERNAME'],
+    :password => ENV['PROD_MAILGUN_PASSWORD']
+  }
 end
