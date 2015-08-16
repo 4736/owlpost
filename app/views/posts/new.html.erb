@@ -4,7 +4,7 @@
 	<%= form_for @post do |f| %>
 
 		<%= f.label :eta, class: "label" %>
-	  <%= f.datetime_field :eta %>
+	  <%= f.datetime_field :eta, value: DateTime.now %>
 
 	  <%= f.label :sender, class: "label" %>
 	  <%= f.text_field :sender %>

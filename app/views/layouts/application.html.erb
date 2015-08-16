@@ -25,11 +25,11 @@
 		</header>
 		<div class="middle">
 			<% if flash[:notice] %>
-			  <div class="notice"><%= flash[:notice] %></div>
+			  <div class="notice"><%= flash[:notice] %><span class="flashX" onclick="this.parentNode.style.display = 'none';">✖</span></div>
 			<% end %>
 
 			<% if flash[:alert] %>
-			  <div class="alert"><%= flash[:alert] %></div>
+			  <div class="alert"><%= flash[:alert] %><span class="flashX" onclick="this.parentNode.style.display = 'none';">✖</span></div>
 			<% end %>
 
 			<%= yield %>

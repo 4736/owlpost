@@ -24,7 +24,7 @@ class PostsController < ApplicationController
       job.update( run_at: post.eta )
     end
 
-    redirect_to posts_path
+    redirect_to posts_path, :flash => { :notice => "Post Updated." }
   end
 
   def edit

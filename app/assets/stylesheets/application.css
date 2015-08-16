@@ -63,6 +63,40 @@ header .hbar {
 	color: darkgray;
 	margin-left: 10px;
 }
+.alert {
+	width: 100%;
+	padding: 10px;
+	/*Extra room for the x button*/
+	padding-right: 30px;
+	margin: 10px auto;
+	background: rgba(231, 76, 60,0.4); 
+	border-radius: 5px;
+	border: 1px solid rgba(192, 57, 43,0.4);
+}
+.notice {
+	width: 100%;
+	padding: 10px;
+	/*Extra room for the x button*/
+	padding-right: 30px;
+	margin: 10px auto;
+	background: rgba(46, 204, 113,0.4); 
+	border-radius: 5px;
+	border: 1px solid rgba(39, 174, 96,0.4);
+}
+.flashX {
+	position: absolute;
+	top: calc(50% - 10px);
+	right: 5px;
+	color: #222222;
+	font: 900 20px/20px sans-serif;
+	cursor: pointer;
+}
+.alert .flashX {
+	color: rgba(192, 57, 43,0.4);
+}
+.notice .flashX {
+	color: rgba(39, 174, 96,0.4);
+}
 .editPost {
 	clear: both;
 }
