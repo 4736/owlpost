@@ -7,13 +7,23 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.create( posts_params )
+    post = current_user.posts.create( posts_params )
+    post.delay(run_at: post.eta, owner_type: "post", owner_id: post.id).deliver
+
     redirect_to posts_path
   end
 
   def update
     post = current_user.posts.find(params[:id])
+    eta_changed = (posts_params["eta"] != post.eta) ? true : false
     post.update( posts_params )
+
+    # No need to call db an extra time if nothing has changed.
+    if eta_changed
+      job = Delayed::Job.find_by_owner_type_and_owner_id!("post", post.id)
+      job.update( run_at: post.eta )
+    end
+
     redirect_to posts_path
   end
 
@@ -23,6 +33,7 @@ class PostsController < ApplicationController
 
   def destroy
     post = current_user.posts.find(params[:id])
+    Delayed::Job.find_by_owner_type_and_owner_id!("post", post.id).destroy
     post.destroy
     redirect_to posts_path
   end
@@ -37,7 +48,7 @@ class PostsController < ApplicationController
 
   private
   def posts_params
-    parameters = params.require(:post).permit(:eta, :recipients, :subject, :body)
+    parameters = params.require(:post).permit(:eta, :sender, :recipients, :subject, :body)
     parameters[:eta] = parameters[:eta].to_datetime
     parameters[:recipients] = parameters[:recipients].split(',').map(&:strip)
     parameters
