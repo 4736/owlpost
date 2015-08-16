@@ -5,9 +5,9 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.user_post.subject
   #
-  def user_post
-    @greeting = "Hi"
+  def user_post(to, from, subject, body)
+    @body = body
 
-    mail to: "to@example.org"
+    mail to: to, from: from, subject: subject
   end
 end
