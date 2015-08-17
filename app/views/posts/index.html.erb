@@ -2,12 +2,12 @@
 
 <div class="posts">
 	<p class="now"><%= Time.now %></p>
-	<% @posts.each do |post| %>
+	<% @posts.order(eta: :desc).each do |post| %>
 		<a href="/posts/<%= post.id %>" class="post">
 			<p class="postLeft"><%= post.subject.truncate(42, separator: ' ') %> ></p>
 			<p class="postLeft">> <%= post.recipients.first %><%= post.recipients.count > 1 ? " and #{post.recipients.count - 1} others." : "" %></p>
 
-			<p class="postRight"><%= post.eta.to_s %></p>
+			<p class="postRight"><%= post.eta.past? ? "Shortly" : post.eta.to_s %></p>
 		</a>
 	<% end %>
 
