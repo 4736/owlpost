@@ -7,24 +7,26 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = current_user.posts.create( posts_params )
-    post.delay(run_at: post.eta, owner_type: "post", owner_id: post.id).deliver
-
-    redirect_to posts_path
+    @post = current_user.posts.new( posts_params )
+    if @post.save
+      @post.delay(run_at: @post.eta, owner_type: "post", owner_id: @post.id).deliver
+      redirect_to posts_path, :flash => { :notice => "Post Created." }
+    else
+      render :new
+    end
   end
 
   def update
-    post = current_user.posts.find(params[:id])
-    eta_changed = (posts_params["eta"] != post.eta) ? true : false
-    post.update( posts_params )
+    @post = current_user.posts.find(params[:id])
+    if @post.update( posts_params )
 
-    # No need to call db an extra time if nothing has changed.
-    if eta_changed
-      job = Delayed::Job.find_by_owner_type_and_owner_id!("post", post.id)
-      job.update( run_at: post.eta )
+      job = Delayed::Job.find_by_owner_type_and_owner_id!("post", @post.id)
+      job.update( run_at: @post.eta )
+
+      redirect_to posts_path, :flash => { :notice => "Post Updated." }
+    else
+      render :new
     end
-
-    redirect_to posts_path, :flash => { :notice => "Post Updated." }
   end
 
   def edit
@@ -49,7 +51,9 @@ class PostsController < ApplicationController
   private
   def posts_params
     parameters = params.require(:post).permit(:eta, :sender, :recipients, :subject, :body)
-    parameters[:eta] = parameters[:eta].to_datetime
+    # replaces blank eta field with current time
+    parameters[:eta] = (parameters[:eta] == "" ? Time.zone.now : parameters[:eta])
+    # splits emails by comma
     parameters[:recipients] = parameters[:recipients].split(',').map(&:strip)
     parameters
   end

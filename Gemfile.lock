@@ -181,6 +181,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   jquery-rails
+  json
   pg
   puma
   rails (= 4.2.3)
