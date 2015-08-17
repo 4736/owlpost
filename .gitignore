@@ -14,4 +14,3 @@
 
 # Ignore local environment variables.
 .env
-Procfile
