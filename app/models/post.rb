@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
-	validate :valid_datetime, :valid_recipients
+	validate :valid_datetime
+	#validate :valid_recipients
 	validates :sender, presence: { message: "Post sender is required." }
 	validates :subject, presence: { message: "Post subject is required." }
 	validates :body, presence: { message: "Post body is required." }
