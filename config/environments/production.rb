@@ -81,7 +81,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['PROD_WEB_HOST'] }
   
   #send html
-  config.action_mailer.default_content_type = "text/html"
+  #config.action_mailer.default_content_type = "text/html"
 
   # Care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
