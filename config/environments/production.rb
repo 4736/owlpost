@@ -82,6 +82,7 @@ Rails.application.configure do
   
   #send html
   #config.action_mailer.default_content_type = "text/html"
+  ActionMailer::Base.default :content_type => "text/html"
 
   # Care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
