@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.user_post.subject
   #
   def user_post(to, from, subject, body)
-    @body = body
+    @body = body.html_safe
 
     mail to: to, from: from, subject: subject
   end
